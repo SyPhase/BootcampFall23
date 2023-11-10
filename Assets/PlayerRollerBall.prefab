@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 10
+  _jumpForce: 250
 --- !u!135 &1013695612277491503
 SphereCollider:
   m_ObjectHideFlags: 0

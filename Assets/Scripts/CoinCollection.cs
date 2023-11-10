@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class CoinCollection : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    AudioSource _SoundManager;
+
+    void OnEnable()
     {
-        if (other.tag == "Player")
-        {
-            Destroy(gameObject);
-        }
+        _SoundManager = FindObjectOfType<AudioSource>();
+    }
+
+    void OnDisable()
+    {
+        _SoundManager.Play();
     }
 }

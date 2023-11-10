@@ -1,55 +1,80 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Movement : MonoBehaviour
 {
+    // SerializeField allows the variable to be set in the Unity Editor while keeping the variable private
+    // Sets the player's speed factor
     [SerializeField] float _speed = 10f;
+    // Sets the player's jump force factor
+    [SerializeField] float _jumpForce = 500f;
 
+    // private variable to store "Ground" objects currently in contact with
+    int _touchingGround = 0;
+
+    // Cache the Rigidbody as a variable since we will use it each frame
     Rigidbody _rigidBody;
 
-    // Input
-    PlayerInput _playerInput;
-    InputActionAsset _inputActionAsset;
-    InputActionMap _playerActionMap;
-    InputAction _movementAction;
+    // Cache PointSystem object to track points
+    PointSystem _pointSystem;
 
-    float _movementValue = 0f;
+    // Cache the camera
+    Camera _mainCam;
+
+    //// Input Variables ////
+    // Player Input is a component on the player object
+    PlayerInput _playerInput;
+
+    // This Input Action Map is the "Player" map, but can be "UI" or any other map you set in the Input Actions Asset
+    InputActionMap _playerActionMap;
+
+    // Input Action is one specific action in the input map, for example "Movement", "Jump", or "Quit"
+    InputAction _movementAction;
 
     void Awake()
     {
-        // Input
+        // Initialize the Input variables
         _playerInput = GetComponent<PlayerInput>();
-        _inputActionAsset = _playerInput.actions;
-        _playerActionMap = _inputActionAsset.FindActionMap("Player");
+        _playerActionMap = _playerInput.actions.FindActionMap("Player");
 
-        // This stores the Rigidbody on this ball to be used as a variable later
+        // This stores a reference to the Rigidbody on this ball to be used as a variable later
         _rigidBody = GetComponent<Rigidbody>();
+
+        // This stores a reference to the PointSystem component 
+        _pointSystem = FindObjectOfType<PointSystem>();
+
+        // This stores a reference to the camera
+        _mainCam = FindObjectOfType<Camera>();
     }
 
     void OnEnable()
     {
-        // Input
+        // Activates our Input when enabled (important this has to be done OnEnable)
         _movementAction = _playerActionMap.FindAction("Movement");
+        // This syntax "subscribes" the HandleJump function to the "Jump" Action
         _playerActionMap.FindAction("Jump").started += HandleJump;
         _playerActionMap.Enable();
     }
 
     void OnDisable()
     {
-        // Input
+        // Deactivates our Input when disabled (important this has to be done OnDisable)
         _playerActionMap.FindAction("Jump").started -= HandleJump;
         _playerActionMap.Disable();
     }
 
+    // This function will be called whenever this Player presses the "Jump" Action
     private void HandleJump(InputAction.CallbackContext obj)
     {
+        // Do nothing if not touching the ground
+        if (_touchingGround < 1) { return; }
+
         // TODO: Jump Logic Here
+        _rigidBody.AddForce(0f, _jumpForce, 0f);
     }
 
+    // This is called for each physics step (a.k.a. every 0.02 seconds to keep the timescale constant for physics interactions)
     void FixedUpdate()
     {
         // We need to take the input from the user (keyboard, controller, ...)
@@ -63,6 +88,45 @@ public class Movement : MonoBehaviour
         Vector3 moveBall = new Vector3(horizontalMovement, 0, verticalMovement);
 
         // Lastly, we will need to access the physics component of the ball (Rigidbody)
-        _rigidBody.AddForce(moveBall * _speed);
+        //_rigidBody.AddForce(moveBall * _speed);
+
+        //// Advanced camera controls ////
+        // Get the camera's y rotation angle
+        float cameraRot = _mainCam.transform.rotation.eulerAngles.y;
+
+        //Put the movement into a Vector3, keep Vertical at zero
+        Vector3 movement = new Vector3(horizontalMovement, 0.0f, verticalMovement);
+
+        //Take the magnitude out of the vector, this leaves us with just the direction. (fixes your movement so moving diagonal doesn't make you go faster than normal)
+        movement = movement.normalized;
+
+        //Apply force in movement direction relative to the camera
+        _rigidBody.AddForce(Quaternion.Euler(0, cameraRot, 0) * movement * _speed);
+    }
+
+    // This is called when this objects collider touches another object's collider
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+            _pointSystem.AddPoint();
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _touchingGround++;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _touchingGround--;
+        }
     }
 }
