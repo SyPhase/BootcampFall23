@@ -1,11 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PointSystem : MonoBehaviour
 {
     [SerializeField] int _score;
     [SerializeField] GUIStyle _pointStyle;
+
+    int _coinCount = 0;
+
+    void Start()
+    {
+        CoinCollection[] coins = FindObjectsOfType<CoinCollection>();
+        _coinCount = coins.Length;
+    }
 
     void OnGUI()
     {
@@ -15,5 +22,10 @@ public class PointSystem : MonoBehaviour
     public void AddPoint()
     {
         _score++;
+
+        if (_score >= _coinCount)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }

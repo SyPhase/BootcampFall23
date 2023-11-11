@@ -32,6 +32,8 @@ public class Movement : MonoBehaviour
     // Input Action is one specific action in the input map, for example "Movement", "Jump", or "Quit"
     InputAction _movementAction;
 
+
+    // Unity Function, called when the object is loaded into the scene
     void Awake()
     {
         // Initialize the Input variables
@@ -55,6 +57,8 @@ public class Movement : MonoBehaviour
         // This syntax "subscribes" the HandleJump function to the "Jump" Action
         _playerActionMap.FindAction("Jump").started += HandleJump;
         _playerActionMap.Enable();
+
+        transform.position = FindObjectOfType<SpawnPoint>().transform.position;
     }
 
     void OnDisable()
@@ -85,7 +89,7 @@ public class Movement : MonoBehaviour
 
         // Since we are dealing with 3D space, we will align horizontal movement to the x-axis
         // and vertical to the z-axis
-        Vector3 moveBall = new Vector3(horizontalMovement, 0, verticalMovement);
+        //Vector3 moveBall = new Vector3(horizontalMovement, 0, verticalMovement);
 
         // Lastly, we will need to access the physics component of the ball (Rigidbody)
         //_rigidBody.AddForce(moveBall * _speed);
@@ -95,7 +99,7 @@ public class Movement : MonoBehaviour
         float cameraRot = _mainCam.transform.rotation.eulerAngles.y;
 
         //Put the movement into a Vector3, keep Vertical at zero
-        Vector3 movement = new Vector3(horizontalMovement, 0.0f, verticalMovement);
+        Vector3 movement = new Vector3(horizontalMovement, 0f, verticalMovement);
 
         //Take the magnitude out of the vector, this leaves us with just the direction. (fixes your movement so moving diagonal doesn't make you go faster than normal)
         movement = movement.normalized;
