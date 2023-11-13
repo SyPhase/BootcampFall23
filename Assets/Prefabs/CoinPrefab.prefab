@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6353115459358912537}
   - component: {fileID: 5365141139773883113}
   - component: {fileID: 3159115728439701348}
-  - component: {fileID: 1314039703026583042}
   - component: {fileID: 1314039703016204738}
   - component: {fileID: 1314039703017302786}
   m_Layer: 0
@@ -49,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7857020aa8cb546a40580b88ddacce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _volume: 0.75
+  _pickupSFX: {fileID: 8300000, guid: 17a7b4d91ca41f343a78b6a090ef2b9e, type: 3}
 --- !u!114 &5365141139773883113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,26 +76,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.038, y: 0.038, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &1314039703026583042
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1314039703019304386}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e40fa0edf8a05e246b4f2025b5acdf75, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!33 &1314039703016204738
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -123,7 +104,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 46942e7ff881c4d4ca139892f7a02acc, type: 2}
+  - {fileID: 2100000, guid: d5a3126debb672f46b7e8ee167572cb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class CoinCollection : MonoBehaviour
 {
-    AudioSource _SoundManager;
+    [Range(0f, 1f)]
+    [SerializeField] float _volume = 1f;
+    [SerializeField] AudioClip _pickupSFX;
+
+    AudioSource _soundManager;
 
     void OnEnable()
     {
-        _SoundManager = FindObjectOfType<AudioSource>();
+        _soundManager = FindObjectOfType<AudioSource>();
     }
 
     void OnDisable()
     {
-        _SoundManager.Play();
+        if (_soundManager)
+        _soundManager.PlayOneShot(_pickupSFX, _volume);
     }
 }

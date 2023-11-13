@@ -1,21 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
 public class ColorSwitcher : MonoBehaviour
 {
-    //[SerializeField] Material _player1;
-    //[SerializeField] Material _player2;
-    //[SerializeField] Material _player3;
-    //[SerializeField] Material _player4;
+    [SerializeField] List<Color> _playerColors = new List<Color>();
 
     void Start()
     {
-        //uint playerID = GetComponent<PlayerInput>().user.id;
+        int playerID = (int)GetComponent<PlayerInput>().user.id - 1;
 
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
 
-        meshRenderer.material.color = new Color(Random.value, Random.value, Random.value);
+        while (playerID >= _playerColors.Count)
+        {
+            playerID -= _playerColors.Count;
+        }
+
+        meshRenderer.material.color = _playerColors[playerID];
     }
 }

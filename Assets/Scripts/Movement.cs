@@ -10,6 +10,20 @@ public class Movement : MonoBehaviour
     // Sets the player's jump force factor
     [SerializeField] float _jumpForce = 500f;
 
+    // Drag in the audio clip to play when jumping
+    [SerializeField] AudioClip _jumpSFX;
+
+    // Volume between 0 and 1
+    [Range(0f, 1f)]
+    [SerializeField] float _jumpVolume = 1f;
+
+    // Drag in the audio clip to play when hitting surfaces
+    [SerializeField] AudioClip _hitSFX;
+
+    // Volume between 0 and 1
+    [Range(0f, 1f)]
+    [SerializeField] float _hitVolume = 1f;
+
     // private variable to store "Ground" objects currently in contact with
     int _touchingGround = 0;
 
@@ -21,6 +35,9 @@ public class Movement : MonoBehaviour
 
     // Cache the camera
     Camera _mainCam;
+
+    // Cache Sound Manager's AudioSource
+    AudioSource _soundManager;
 
     //// Input Variables ////
     // Player Input is a component on the player object
@@ -48,6 +65,8 @@ public class Movement : MonoBehaviour
 
         // This stores a reference to the camera
         _mainCam = FindObjectOfType<Camera>();
+
+        _soundManager = FindObjectOfType<AudioSource>();
     }
 
     void OnEnable()
@@ -74,8 +93,11 @@ public class Movement : MonoBehaviour
         // Do nothing if not touching the ground
         if (_touchingGround < 1) { return; }
 
-        // TODO: Jump Logic Here
+        // Adds upward force to jump
         _rigidBody.AddForce(0f, _jumpForce, 0f);
+
+        // Play jump sound at set jump volume
+        _soundManager.PlayOneShot(_jumpSFX, _jumpVolume);
     }
 
     // This is called for each physics step (a.k.a. every 0.02 seconds to keep the timescale constant for physics interactions)
@@ -123,6 +145,11 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             _touchingGround++;
+        }
+
+        if (collision.impulse.magnitude > 4f)
+        {
+            _soundManager.PlayOneShot(_hitSFX, _hitVolume);
         }
     }
 

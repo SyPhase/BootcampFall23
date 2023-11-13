@@ -33,7 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -82,6 +82,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 15
   _jumpForce: 250
+  _jumpSFX: {fileID: 8300000, guid: 053df280165c5d94dbac60a8b0b84277, type: 3}
+  _jumpVolume: 0.75
+  _hitSFX: {fileID: 8300000, guid: 8d06a098b900f5b4883f3a39ae9e7d52, type: 3}
+  _hitVolume: 1
 --- !u!135 &1013695612277491503
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -123,6 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d447b02b51875a24a822b6072527742a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerColors:
+  - {r: 0.8773585, g: 0.564051, b: 0.07035423, a: 1}
+  - {r: 0.73243266, g: 0.09313814, b: 0.8584906, a: 1}
+  - {r: 0.12408847, g: 0.8301887, b: 0.06657174, a: 1}
+  - {r: 0.8679245, g: 0.07778566, b: 0.11871468, a: 1}
 --- !u!33 &1013695612277491501
 MeshFilter:
   m_ObjectHideFlags: 0
