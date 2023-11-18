@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Movement : MonoBehaviour
+public class BallMovement : MonoBehaviour
 {
     // SerializeField allows the variable to be set in the Unity Editor while keeping the variable private
     // Sets the player's speed factor

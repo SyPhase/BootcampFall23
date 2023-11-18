@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CoinCollection : MonoBehaviour
+public class Coin : MonoBehaviour
 {
     [Range(0f, 1f)]
     [SerializeField] float _volume = 1f;

@@ -10,7 +10,7 @@ public class PointSystem : MonoBehaviour
 
     void Start()
     {
-        CoinCollection[] coins = FindObjectsOfType<CoinCollection>();
+        Coin[] coins = FindObjectsOfType<Coin>();
         _coinCount = coins.Length;
     }
 

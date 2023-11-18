@@ -9,7 +9,7 @@ public class KillFloor : MonoBehaviour
         {
             other.gameObject.SetActive(false);
 
-            if (FindObjectOfType<Movement>())
+            if (FindObjectOfType<BallMovement>())
             {
                 // Other players are still playing
                 return;

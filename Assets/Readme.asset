@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf7219bab7fe46a1ad266029b2fee19, type: 3}
+  m_Name: Readme
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: 7801804018a7dcf42abb827444e18660, type: 3}
+  title: Universal Render Pipeline Template
+  sections:
+  - heading: Example Project
+    text: 'This example project is a physics based roller-ball game where you roll a ball to collect all the coins.'
+    linkText: 
+    url: 
+  - heading:
+    text: 'Check your Project window to find your Assets first.  This is where all your files, assets, and scripts will be kept.  You can find an example of each kind of asset in their respective folders.'
+    linkText: 
+    url: 
+  - heading:
+    text: 'If you have any questions, please ask me in the ACM Discord server in the #game-jam channel'
+    linkText: ACM Discord Server
+    url: https://discord.gg/kKAE5ksAPx
+  loadedLayout: 1
