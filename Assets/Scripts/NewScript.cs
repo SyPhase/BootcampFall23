@@ -30,16 +30,19 @@ public class NewScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print(collision.impulse);
+        // Uncomment to see impulse force in Console
+        //print(collision.impulse);
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        print(collision.gameObject.name);
+        // Uncomment to see other object's name in Console
+        //print(collision.gameObject.name);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.name);
+        // Uncomment to see other object's name in Console
+        //print(other.name);
     }
 }
